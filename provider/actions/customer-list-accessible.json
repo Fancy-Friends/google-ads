@@ -1,0 +1,21 @@
+{
+  "$comment": "GET v25/customers:listAccessibleCustomers, read from Google's v25 discovery document. It requires no customer id and explicitly ignores login-customer-id, making it useful before the caller has selected an account.",
+  "operation": "customer_list_accessible",
+  "kind": "customer_list",
+  "title": "Accessible Google Ads customers",
+  "description": "List Google Ads customer resource names directly accessible to the authenticated user. Manager-linked client accounts are not included; query the account hierarchy after choosing a directly accessible manager.",
+  "summary": "list directly accessible customers",
+  "docs": "https://developers.google.com/google-ads/api/rest/reference/rest/v25/customers/listAccessibleCustomers",
+  "sideEffects": "none",
+  "request": {
+    "method": "GET",
+    "path": "/v25/customers:listAccessibleCustomers",
+    "$pathComment": "The colon names a REST-transcoded service method; it is literal path syntax, not a customer-id placeholder. Google documents REST and gRPC as supported call surfaces, with gRPC preferred by its client libraries."
+  },
+  "config": [],
+  "outputShape": [
+    { "path": "data.resourceNames", "type": "array", "description": "Customer resource names in customers/{customer_id} form that the OAuth identity can access directly." }
+  ],
+  "$outputComment": "The discovery response is the created top-level response object itself: one resourceNames array, with no data wrapper from Google. `data` here is the connector output path vocabulary, not a claimed wire envelope.",
+  "contract": { "sends": [], "reads": ["resourceNames"] }
+}

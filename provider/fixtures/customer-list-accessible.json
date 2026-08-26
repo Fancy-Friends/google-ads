@@ -1,0 +1,7 @@
+{
+  "$comment": "The real ListAccessibleCustomersResponse is top-level and contains resourceNames directly. It does not return Customer objects or manager-linked descendants.",
+  "operation": "customer_list_accessible",
+  "response": {
+    "resourceNames": ["customers/1234567890", "customers/9876543210"]
+  }
+}

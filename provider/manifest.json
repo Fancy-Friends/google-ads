@@ -1,0 +1,48 @@
+{
+  "$comment": "THE hand-written part. Four packages are generated from this directory and are never edited. Google Ads publishes a v25 discovery document, so the callable surface and response shape are checked against Google's machine-readable source.",
+  "connectorApi": 1,
+  "service": "google_ads",
+  "title": "Google Ads",
+  "domain": "marketing",
+  "docs": "https://developers.google.com/google-ads/api/rest/auth",
+  "auth": "oauth2",
+  "requires": ["accessToken", "refreshToken", "clientId", "clientSecret", "developerToken", "loginCustomerId"],
+  "authorize": {
+    "kind": "bearer",
+    "credential": "accessToken",
+    "also": [
+      { "header": "developer-token", "credential": "developerToken" },
+      { "header": "login-customer-id", "credential": "loginCustomerId", "optional": true }
+    ],
+    "$comment": "Google Ads requires the OAuth bearer AND the developer-token header on ordinary calls. developerToken identifies the installed API application; loginCustomerId selects the manager account only when access to a client is through that manager. An absent optional manager id omits the header rather than sending it empty."
+  },
+  "oauth": {
+    "flow": "authorization_code",
+    "authorizeUrl": "https://accounts.google.com/o/oauth2/v2/auth",
+    "tokenUrl": "https://oauth2.googleapis.com/token",
+    "scopes": ["https://www.googleapis.com/auth/adwords"],
+    "accessTokenCredential": "accessToken",
+    "refreshTokenCredential": "refreshToken",
+    "refreshTokenRotates": false,
+    "accessTokenTtlSeconds": 3600,
+    "$refreshTokenRotates": "Google returns a reusable refresh token for offline access. Refreshing replaces the one-hour access token; Google does not document a new refresh token on every refresh response, so the original remains the connection credential until revoked.",
+    "$scopeComment": "The v25 discovery method and Google's REST authorization guide both name exactly https://www.googleapis.com/auth/adwords. Google classifies it as restricted, so production OAuth verification is an operational prerequisite."
+  },
+  "sandbox": "separate-account",
+  "$sandboxComment": "CHECKED. Google Ads test accounts live in a separate test-manager hierarchy and cannot interact with production accounts. They appear cancelled, have no billing, never serve ads and produce no serving metrics. The same API host is used, while the connected account decides the estate.",
+  "sandboxNote": "Use a dedicated Google Ads test manager and test client account. Test and production hierarchies cannot interact; test ads never serve or incur cost, but some features such as billing, conversion uploads and serving reports cannot be exercised there.",
+  "baseUrls": {
+    "live": "https://googleads.googleapis.com",
+    "sandbox": "https://googleads.googleapis.com"
+  },
+  "$baseUrlComment": "v25 is pinned in each request path. It was released 2026-07-22 and is supported until August 2027, buying roughly a year of explicit compatibility. v25.1 was still upcoming when researched; pinning an unreleased revision would make every call fail rather than extend support.",
+  "encoding": "json",
+  "credentialFields": [
+    { "key": "clientId", "label": "OAuth client ID", "scope": "provider", "secret": false, "help": "The Google Cloud OAuth client shared by the installation." },
+    { "key": "clientSecret", "label": "OAuth client secret", "scope": "provider", "secret": true, "help": "The matching Google Cloud OAuth client secret." },
+    { "key": "developerToken", "label": "Developer token", "scope": "provider", "secret": true, "help": "The 22-character Google Ads API developer token from the manager account's API Center. Google says to treat it like a password; one token identifies the installed application." },
+    { "key": "accessToken", "label": "Access token", "scope": "account", "secret": true, "help": "The connected Google user's one-hour OAuth access token." },
+    { "key": "refreshToken", "label": "Refresh token", "scope": "account", "secret": true, "help": "The reusable offline token used to replace expired access tokens." },
+    { "key": "loginCustomerId", "label": "Manager customer ID", "scope": "account", "secret": false, "optional": true, "help": "Optional. The manager account's 10-digit customer ID without hyphens. Required when the OAuth user reaches a client through that manager; omit it for direct access." }
+  ]
+}
