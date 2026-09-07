@@ -21,7 +21,7 @@ from .actions.customer_list_accessible import customer_list_accessible
 from .faker import respond
 from .service import BASE_URLS, CONNECTOR_API_VERSION, REQUIRES, SANDBOX, SERVICE, TITLE, descriptor
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "BASE_URLS",
