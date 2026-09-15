@@ -48,7 +48,7 @@ final class GoogleAdsFaker
     }
 
     /** @param array<string,mixed> $config */
-    private static function CustomerListAccessible(array $config, mixed $fake): array
+    private static function CustomerListAccessible(array $config, mixed $fake): array|\stdClass
     {
         return [
         'resourceNames' => [
