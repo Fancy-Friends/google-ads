@@ -48,7 +48,7 @@
     "packages/py/pyproject.toml": "bc1fc1448b825751121c993d654c8a51bbbed09c356099fc5839668ef153c8dc",
     "packages/py/src/fancy_google_ads/__init__.py": "497b3decd17c6cd87a35cd5296cd84e90bf35fd6ded1fb213039c44f7e346fc8",
     "packages/py/src/fancy_google_ads/_fake.py": "dd1cda9fd1f21e91fb31a500e854bf9af43f63be4e5c012f4e4dfc2d12051ad0",
-    "packages/py/src/fancy_google_ads/_runtime.py": "6e388deeba2a91245e767035d1562137d729fbacd315146e5308924b9d18f6b4",
+    "packages/py/src/fancy_google_ads/_runtime.py": "686acac4a4ae152c62acbec9102dff5e46015cf78269bf5c1cd1177f97cc4114",
     "packages/py/src/fancy_google_ads/actions/__init__.py": "e75d52363f41ce3aa4e05d2ee4f48b27caa9819c7a81656d09d9778cc27a9e52",
     "packages/py/src/fancy_google_ads/actions/customer_list_accessible.py": "88d2c7f52296f4b345b1cfde21bfb8aa87c396c21e2c3bea7f911ee7604253fa",
     "packages/py/src/fancy_google_ads/faker.py": "7335549e2b8a31057503b8263e2682a284cb8acf57c3b364dd12951f302fc5d8",
