@@ -4,6 +4,24 @@ All notable changes to `@particle-academy/google-ads-ui`,
 `@particle-academy/google-ads-js`, `particle-academy/google-ads-php` and
 `fancy-google-ads`.
 
+## [0.3.1] — 2026-11-08
+
+### Fixed
+
+- **The Laravel config's environment variable names now split camelCase**,
+  as documented. **Consumer action: none.** The old unsplit names are still
+  read as a fallback, so an app that set them keeps working; the new names
+  are preferred.
+
+  | Preferred | Still read |
+  |---|---|
+  | `GOOGLE_ADS_CLIENT_ID` | `GOOGLE_ADS_CLIENTID` |
+  | `GOOGLE_ADS_CLIENT_SECRET` | `GOOGLE_ADS_CLIENTSECRET` |
+  | `GOOGLE_ADS_DEVELOPER_TOKEN` | `GOOGLE_ADS_DEVELOPERTOKEN` |
+  | `GOOGLE_ADS_ACCESS_TOKEN` | `GOOGLE_ADS_ACCESSTOKEN` |
+  | `GOOGLE_ADS_REFRESH_TOKEN` | `GOOGLE_ADS_REFRESHTOKEN` |
+  | `GOOGLE_ADS_LOGIN_CUSTOMER_ID` | `GOOGLE_ADS_LOGINCUSTOMERID` |
+
 ## [0.3.0] — 2026-11-08
 
 ### Added

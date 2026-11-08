@@ -20,16 +20,16 @@ return [
 
     'credentials' => [
         // OAuth client ID (one per installation).
-        'clientId' => env('GOOGLE_ADS_CLIENTID'),
+        'clientId' => env('GOOGLE_ADS_CLIENT_ID', env('GOOGLE_ADS_CLIENTID')),
         // OAuth client secret (one per installation, secret).
-        'clientSecret' => env('GOOGLE_ADS_CLIENTSECRET'),
+        'clientSecret' => env('GOOGLE_ADS_CLIENT_SECRET', env('GOOGLE_ADS_CLIENTSECRET')),
         // Developer token (one per installation, secret).
-        'developerToken' => env('GOOGLE_ADS_DEVELOPERTOKEN'),
+        'developerToken' => env('GOOGLE_ADS_DEVELOPER_TOKEN', env('GOOGLE_ADS_DEVELOPERTOKEN')),
         // Access token (per connected account, secret).
-        'accessToken' => env('GOOGLE_ADS_ACCESSTOKEN'),
+        'accessToken' => env('GOOGLE_ADS_ACCESS_TOKEN', env('GOOGLE_ADS_ACCESSTOKEN')),
         // Refresh token (per connected account, secret).
-        'refreshToken' => env('GOOGLE_ADS_REFRESHTOKEN'),
+        'refreshToken' => env('GOOGLE_ADS_REFRESH_TOKEN', env('GOOGLE_ADS_REFRESHTOKEN')),
         // Manager customer ID (per connected account).
-        'loginCustomerId' => env('GOOGLE_ADS_LOGINCUSTOMERID'),
+        'loginCustomerId' => env('GOOGLE_ADS_LOGIN_CUSTOMER_ID', env('GOOGLE_ADS_LOGINCUSTOMERID')),
     ],
 ];
