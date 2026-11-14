@@ -4,6 +4,26 @@ All notable changes to `@particle-academy/google-ads-ui`,
 `@particle-academy/google-ads-js`, `particle-academy/google-ads-php` and
 `fancy-google-ads`.
 
+## [0.3.2] — 2026-11-14
+
+### Added
+
+- **Complete setup steps**, in SETUP.md and the registry index. Every Google connector shares
+  the same first four, because they share one consent grant:
+  - the Cloud project;
+  - enabling the API;
+  - the consent screen (Branding, Audience with test users, Data Access with this
+    connector's scopes);
+  - a Web application OAuth client with `{{oauthRedirectUrl}}` as an authorized redirect URI.
+  - Google Ads API access and the developer token, applied for on the Google Ads API Overview
+    page in Cloud Console: Google no longer issues tokens from the API Center, and access levels
+    now belong to the Cloud project. The `developerToken` help text said API Center and is
+    corrected;
+  - an AGENT step that connects an account and checks it works.
+
+  Each step cites the Google page it was checked against on 2026-11-14.
+- A one-line `summary`.
+
 ## [0.3.1] — 2026-11-08
 
 ### Fixed

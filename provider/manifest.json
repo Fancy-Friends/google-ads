@@ -50,10 +50,61 @@
   },
   "$baseUrlComment": "v25 is pinned in each request path. It was released 2026-07-22 and is supported until August 2027, buying roughly a year of explicit compatibility. v25.1 was still upcoming when researched; pinning an unreleased revision would make every call fail rather than extend support.",
   "encoding": "json",
+  "summary": "Read Google Ads accounts from a workflow or a Laravel app.",
+  "$setupComment": "Steps read from Google's docs on 2026-11-14 (each cites its page). Every Google connector shares one grant, so the first four steps are the same for all of them; do them once.",
+  "setup": [
+    {
+      "title": "Create (or reuse) the Google Cloud project for {{appName}}",
+      "detail": "Every Google connector shares ONE consent grant (oauth.grant \"google\"), so use one project and one OAuth client for all of them: one consent and one refresh token per person.",
+      "url": "https://developers.google.com/workspace/guides/create-project"
+    },
+    {
+      "title": "Enable the Google Ads API",
+      "detail": "Console: APIs & Services, Library; open the Google Ads API and click Enable.",
+      "url": "https://developers.google.com/workspace/guides/enable-apis"
+    },
+    {
+      "title": "Configure the consent screen",
+      "detail": "Console: Google Auth platform, Branding (app name {{appName}}, support email, contact email), then Audience: Internal for people inside your Google Workspace organisation only, or External (while it is in testing, add each tester under Test users). Then Data Access, Add or Remove Scopes, and add `https://www.googleapis.com/auth/adwords` beside the scopes of any other Google connector you use. You cannot remove the consent screen once it is configured.",
+      "url": "https://developers.google.com/workspace/guides/configure-oauth-consent"
+    },
+    {
+      "title": "Create a Web application OAuth client",
+      "detail": "Console: Google Auth platform, Clients, Create Client; type Web application. Under Authorized redirect URIs click Add URI and paste {{oauthRedirectUrl}}, then Create. Copy the client ID and client secret when the client is created.",
+      "url": "https://developers.google.com/workspace/guides/create-credentials",
+      "copy": [
+        {
+          "label": "Authorized redirect URI",
+          "value": "{{oauthRedirectUrl}}"
+        }
+      ],
+      "fields": [
+        "clientId",
+        "clientSecret"
+      ]
+    },
+    {
+      "title": "Get Google Ads API access and the developer token",
+      "detail": "Developer tokens are no longer issued from the Google Ads API Center: do not sign up there. Apply from the Google Ads API Overview page in Cloud Console. Access now belongs to the Cloud PROJECT: a new project has Test access (test accounts only, 15,000 operations a day); Explorer access is usually approved automatically (up to 2,880 operations a day on production accounts); Basic and Standard need brand verification first. A production call from an unapproved project fails with CLOUD_PROJECT_NOT_APPROVED_FOR_PRODUCTION.",
+      "url": "https://developers.google.com/google-ads/api/docs/api-policy/developer-token",
+      "fields": [
+        "developerToken"
+      ]
+    },
+    {
+      "title": "Connect an account and check it works",
+      "detail": "Connect one Google account through {{appName}}'s OAuth flow, then run the check below.",
+      "url": "https://developers.google.com/google-ads/api/docs/api-policy/developer-token",
+      "actor": "agent",
+      "prompt": "Using {{appName}}'s {{connector}} connection, run customer_list_accessible and report the customer ids it returns.",
+      "done": "customer_list_accessible lists the accounts this Google user can reach."
+    }
+  ],
+
   "credentialFields": [
     { "key": "clientId", "label": "OAuth client ID", "scope": "provider", "secret": false, "help": "The Google Cloud OAuth client shared by the installation." },
     { "key": "clientSecret", "label": "OAuth client secret", "scope": "provider", "secret": true, "help": "The matching Google Cloud OAuth client secret." },
-    { "key": "developerToken", "label": "Developer token", "scope": "provider", "secret": true, "help": "The 22-character Google Ads API developer token from the manager account's API Center. Google says to treat it like a password; one token identifies the installed application." },
+    { "key": "developerToken", "label": "Developer token", "scope": "provider", "secret": true, "help": "The Google Ads API developer token, applied for on the Google Ads API Overview page in Cloud Console (no longer the Ads API Center; access levels now belong to the Cloud project). Google says to treat it like a password; one token identifies the installed application." },
     { "key": "accessToken", "label": "Access token", "scope": "account", "secret": true, "help": "The connected Google user's one-hour OAuth access token." },
     { "key": "refreshToken", "label": "Refresh token", "scope": "account", "secret": true, "help": "The reusable offline token used to replace expired access tokens." },
     { "key": "loginCustomerId", "label": "Manager customer ID", "scope": "account", "secret": false, "optional": true, "help": "Optional. The manager account's 10-digit customer ID without hyphens. Required when the OAuth user reaches a client through that manager; omit it for direct access." }
