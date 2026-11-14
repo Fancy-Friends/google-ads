@@ -92,7 +92,7 @@ export const GOOGLE_ADS_CREDENTIALS = [
     "label": "Developer token",
     "scope": "provider",
     "secret": true,
-    "help": "The 22-character Google Ads API developer token from the manager account's API Center. Google says to treat it like a password; one token identifies the installed application."
+    "help": "The Google Ads API developer token, applied for on the Google Ads API Overview page in Cloud Console (no longer the Ads API Center; access levels now belong to the Cloud project). Google says to treat it like a password; one token identifies the installed application."
   },
   {
     "key": "accessToken",

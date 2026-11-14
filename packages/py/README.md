@@ -33,6 +33,17 @@ dependencies nobody is tracking.
 
 Everything below is generated from `provider/manifest.json`, so it cannot disagree with what the packages do.
 
+### On Google Ads's side
+
+1. **Create (or reuse) the Google Cloud project for **your app's name**** — Every Google connector shares ONE consent grant (oauth.grant "google"), so use one project and one OAuth client for all of them: one consent and one refresh token per person. ([developers.google.com](https://developers.google.com/workspace/guides/create-project))
+2. **Enable the Google Ads API** — Console: APIs & Services, Library; open the Google Ads API and click Enable. ([developers.google.com](https://developers.google.com/workspace/guides/enable-apis))
+3. **Configure the consent screen** — Console: Google Auth platform, Branding (app name **your app's name**, support email, contact email), then Audience: Internal for people inside your Google Workspace organisation only, or External (while it is in testing, add each tester under Test users). Then Data Access, Add or Remove Scopes, and add `https://www.googleapis.com/auth/adwords` beside the scopes of any other Google connector you use. You cannot remove the consent screen once it is configured. ([developers.google.com](https://developers.google.com/workspace/guides/configure-oauth-consent))
+4. **Create a Web application OAuth client** — Console: Google Auth platform, Clients, Create Client; type Web application. Under Authorized redirect URIs click Add URI and paste **your host's OAuth redirect URL**, then Create. Copy the client ID and client secret when the client is created. ([developers.google.com](https://developers.google.com/workspace/guides/create-credentials))
+5. **Get Google Ads API access and the developer token** — Developer tokens are no longer issued from the Google Ads API Center: do not sign up there. Apply from the Google Ads API Overview page in Cloud Console. Access now belongs to the Cloud PROJECT: a new project has Test access (test accounts only, 15,000 operations a day); Explorer access is usually approved automatically (up to 2,880 operations a day on production accounts); Basic and Standard need brand verification first. A production call from an unapproved project fails with CLOUD_PROJECT_NOT_APPROVED_FOR_PRODUCTION. ([developers.google.com](https://developers.google.com/google-ads/api/docs/api-policy/developer-token))
+6. **Connect an account and check it works** — Connect one Google account through **your app's name**'s OAuth flow, then run the check below. ([developers.google.com](https://developers.google.com/google-ads/api/docs/api-policy/developer-token))
+
+Every step in full — who does it, what to paste, which credentials it yields, and how you know it worked — is in [SETUP.md](SETUP.md).
+
 ### Credentials
 
 A Google Ads connection holds 6 values.
@@ -43,7 +54,7 @@ A Google Ads connection holds 6 values.
 |---|---|---|---|
 | **OAuth client ID** | per installation | not secret | The Google Cloud OAuth client shared by the installation. |
 | **OAuth client secret** | per installation | **secret** | The matching Google Cloud OAuth client secret. |
-| **Developer token** | per installation | **secret** | The 22-character Google Ads API developer token from the manager account's API Center. Google says to treat it like a password; one token identifies the installed application. |
+| **Developer token** | per installation | **secret** | The Google Ads API developer token, applied for on the Google Ads API Overview page in Cloud Console (no longer the Ads API Center; access levels now belong to the Cloud project). Google says to treat it like a password; one token identifies the installed application. |
 | **Access token** | per connected account | **secret** | The connected Google user's one-hour OAuth access token. |
 | **Refresh token** | per connected account | **secret** | The reusable offline token used to replace expired access tokens. |
 | **Manager customer ID** *(optional)* | per connected account | not secret | Optional. The manager account's 10-digit customer ID without hyphens. Required when the OAuth user reaches a client through that manager; omit it for direct access. |
